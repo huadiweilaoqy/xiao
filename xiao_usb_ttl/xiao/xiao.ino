@@ -1,3 +1,25 @@
+/*
+ * This example is used for USB to ttl.
+ * update file Arduino15\packages\Seeeduino\hardware\samd\1.6.0\cores\arduino\USB\USBAPI.h
+ * 
+    class Serial_ : public Stream
+    {
+    public:
+      ......
+      ......
+      //add 
+      uint32_t getBaud(void);
+    
+    }
+ * 
+ * update file Arduino15\packages\Seeeduino\hardware\samd\1.6.0\cores\arduino\USB\CDC.cpp
+ * add
+    uint32_t Serial_::getBaud(void)
+    {
+     return _usbLineInfo.dwDTERate;
+    }
+ */
+
 uint32_t baud;
 uint32_t old_baud;
 void setup() {
@@ -18,7 +40,7 @@ void loop() {
      Serial1.begin(baud);
      while(!Serial);
      old_baud=baud;
-     SerialUSB.println(baud);
+//     SerialUSB.println(baud);
   }
   if (SerialUSB.available() > 0)
   {
